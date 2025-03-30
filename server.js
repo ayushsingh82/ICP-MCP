@@ -1,8 +1,8 @@
 const express = require('express');
 const path = require('path');
-const { fetchICPTVL } = require('./fetch-icp-tvl');
-const { fetchICPVolume } = require('./fetch-icp-volume');
-const { fetchICPPrices } = require('./fetch-icp-prices');
+const { fetchICPTVL } = require('./lib/get-tvl');
+const { fetchICPVolume } = require('./lib/get-protocol');
+const { fetchICPPrices } = require('./lib/get-token-prices');
 
 const app = express();
 const port = 3000;

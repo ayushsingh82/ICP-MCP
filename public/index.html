@@ -276,6 +276,37 @@
   }
 }</code></pre>
       </div>
+
+      <!-- New box for Claude setup command -->
+      <div class="glass rounded-3xl p-8 mt-8 relative overflow-hidden">
+        <div class="flex items-center justify-between mb-6 relative">
+          <div class="flex items-center gap-3">
+            <div class="w-3 h-3 rounded-full bg-[#FF5F57]"></div>
+            <div class="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+            <div class="w-3 h-3 rounded-full bg-[#28C840]"></div>
+          </div>
+          <div class="text-sm text-gray-500 font-mono">Try with Claude</div>
+        </div>
+        <pre class="text-sm bg-[#0A0A0A] rounded-2xl p-6 overflow-x-auto font-mono relative">
+<code class="text-gray-300">npx @composio/mcp@latest setup "https://agent.mcpify.ai/sse?server=adc7aab6-0073-47f7-b42a-c7cd0c431ab3" --client claude</code></pre>
+        <button onclick="copyToClipboard(this)" class="absolute top-[90px] right-12 px-3 py-1.5 text-xs font-medium text-white/80 hover:text-white bg-[#29ABE2]/10 hover:bg-[#29ABE2]/20 rounded-lg transition-colors">
+          Copy
+        </button>
+      </div>
+
+      <script>
+        function copyToClipboard(button) {
+          const command = 'npx @composio/mcp@latest setup "https://agent.mcpify.ai/sse?server=adc7aab6-0073-47f7-b42a-c7cd0c431ab3" --client claude';
+          navigator.clipboard.writeText(command);
+          
+          // Change button text temporarily
+          const originalText = button.textContent;
+          button.textContent = 'Copied!';
+          setTimeout(() => {
+            button.textContent = originalText;
+          }, 2000);
+        }
+      </script>
     </div>
   </body>
 </html>
