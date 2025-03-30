@@ -1,16 +1,20 @@
 const express = require('express');
 const path = require('path');
-const app = express();
+const { fetchICPTVL } = require('./fetch-icp-tvl');
+const { fetchICPVolume } = require('./fetch-icp-volume');
+const { fetchICPPrices } = require('./fetch-icp-prices');
 
-// Serve static files from the public directory
+const app = express();
+const port = 3000;
+
+// Serve static files from public directory
 app.use(express.static('public'));
 
-// Routes for API endpoints
-app.get('/api/prices', async (req, res) => {
+// API endpoints
+app.get('/api/tvl', async (req, res) => {
   try {
-    const { fetchStellarTokenPrices } = require('./fetch-stellar-prices');
-    const prices = await fetchStellarTokenPrices();
-    res.json(prices);
+    const data = await fetchICPTVL();
+    res.json(data);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -18,19 +22,17 @@ app.get('/api/prices', async (req, res) => {
 
 app.get('/api/volume', async (req, res) => {
   try {
-    const { fetchStellarVolume } = require('./fetch-stellar-volume');
-    const volume = await fetchStellarVolume();
-    res.json(volume);
+    const data = await fetchICPVolume();
+    res.json(data);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-app.get('/api/tvl', async (req, res) => {
+app.get('/api/prices', async (req, res) => {
   try {
-    const { fetchStellarTVL } = require('./fetch-stellar-tvl');
-    const tvl = await fetchStellarTVL();
-    res.json(tvl);
+    const data = await fetchICPPrices();
+    res.json(data);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -41,7 +43,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 }); 
